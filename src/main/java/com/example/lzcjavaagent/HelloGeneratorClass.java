@@ -28,8 +28,7 @@ public class HelloGeneratorClass implements Opcodes {
         cw.visitSource("Hello.java", null);
 
         {
-            fv = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC, "FLAG", "Ljava/lang/String;", null,
-                    "\u6211\u662f\u5e38\u91cf");
+            fv = cw.visitField(ACC_PUBLIC + ACC_FINAL + ACC_STATIC, "FLAG", "Ljava/lang/String;", null, "\u6211\u662f\u5e38\u91cf");
             fv.visitEnd();
         }
         {
@@ -84,8 +83,7 @@ public class HelloGeneratorClass implements Opcodes {
 
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "testList", "()Ljava/util/List;", "()Ljava/util/List<Ljava/lang/String;>;",
-                    null);
+            mv = cw.visitMethod(ACC_PUBLIC, "testList", "()Ljava/util/List;", "()Ljava/util/List<Ljava/lang/String;>;", null);
             mv.visitCode();
             Label l0 = new Label();
             mv.visitLabel(l0);

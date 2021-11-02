@@ -21,10 +21,10 @@ public class MathGame {
 
     public void run() throws InterruptedException {
         try {
-            int x=5;
-            int y=2;
-            int z=x-y;
-            int number = random.nextInt()/1000;
+            int x = 5;
+            int y = 2;
+            int z = x - y;
+            int number = random.nextInt() / 1000;
             List<Integer> primeFactors = primeFactors(number);
             print(number, primeFactors);
 
@@ -41,7 +41,7 @@ public class MathGame {
         if (sb.charAt(sb.length() - 1) == '*') {
             sb.deleteCharAt(sb.length() - 1);
         }
-        System.out.println("debug=="+sb);
+        System.out.println("debug==" + sb);
     }
 
     public List<Integer> primeFactors(int number) {

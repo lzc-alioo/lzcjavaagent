@@ -13,7 +13,8 @@ public class LogTransformer implements ClassFileTransformer {
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
         try {
-            if(className.startsWith("java")||className.startsWith("sun")||className.startsWith("com/intellij/rt/debugger")){
+            System.out.println("transform:" + className);
+            if (className.startsWith("java") || className.startsWith("sun") || className.startsWith("com/intellij/rt/debugger")) {
                 return classfileBuffer;
             }
 
@@ -22,14 +23,13 @@ public class LogTransformer implements ClassFileTransformer {
             TimeCountAdpter timeCountAdpter = new TimeCountAdpter(cw);
             cr.accept(timeCountAdpter, ClassReader.EXPAND_FRAMES);
 
+            System.out.println("transform:" + className + "|success|class byte code beofore:" + classfileBuffer.length + ",after:" + cw.toByteArray().length);
             return cw.toByteArray();
         } catch (IOException e) {
-            System.out.println("alioo IOException:"+className+":"+e.getMessage());
-            e.printStackTrace();
-        } catch (Error e) {
-            System.out.println("alioo Error:"+className+":"+e.getMessage());
+            System.out.println("alioo IOException:" + className + ":" + e.getMessage());
             e.printStackTrace();
         }
+
         return classfileBuffer;
     }
 }

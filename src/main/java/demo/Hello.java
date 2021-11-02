@@ -24,6 +24,8 @@ public class Hello {
         var1.add("Tome");
         var1.add("Jack");
         var1.add("Lily");
+
+
         System.out.println(">>>>>>>>>>testList > list.size = " + var1.size());
         return var1;
     }

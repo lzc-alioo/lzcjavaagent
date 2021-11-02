@@ -17,9 +17,9 @@ public class TimeCountAdpter extends ClassVisitor implements Opcodes {
 
     private String methodName;
 
-    private String filedName = "UDASMCN";
-    private int acc = Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC + Opcodes.ACC_FINAL;
-    private boolean isPresent = false;
+//    private String filedName = "UDASMCN";
+//    private int acc = Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC + Opcodes.ACC_FINAL;
+//    private boolean isPresent = false;
 
 
     public TimeCountAdpter(ClassVisitor classVisitor) {
@@ -55,25 +55,23 @@ public class TimeCountAdpter extends ClassVisitor implements Opcodes {
     }
 
 
-    @Override
-    public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-        if (name.equals(filedName)) {
-            isPresent = true;
-        }
-        return super.visitField(access, name, descriptor, signature, value);
-    }
-
-
-    @Override
-    public void visitEnd() {
-        if (!isInterface) {
-            FieldVisitor fv = cv.visitField(acc, filedName, "Ljava/lang/String;", null, owner);
-            if (fv != null) {
-                fv.visitEnd();
-            }
-        }
-        cv.visitEnd();
-    }
+//    @Override
+//    public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
+//        if (name.equals(filedName)) {
+//            isPresent = true;
+//        }
+//        return super.visitField(access, name, descriptor, signature, value);
+//    }
+//    @Override
+//    public void visitEnd() {
+//        if (!isInterface) {
+//            FieldVisitor fv = cv.visitField(acc, filedName, "Ljava/lang/String;", null, owner);
+//            if (fv != null) {
+//                fv.visitEnd();
+//            }
+//        }
+//        cv.visitEnd();
+//    }
 
     class AddTimerMethodAdapter extends MethodVisitor {
         private int time;

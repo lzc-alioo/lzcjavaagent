@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <artifactId>lzc-javaagent</artifactId>
+    <groupId>com.example</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.example</groupId>
-  <artifactId>lzcjavaagent</artifactId>
-  <name>lzcjavaagent</name>
+  <artifactId>lzc-javaagent-asm</artifactId>
+  <name>lzc-javaagent-asm</name>
   <version>0.0.1-SNAPSHOT</version>
-  <description>Demo project for Spring Boot</description>
+  <url>http://www.example.com</url>
   <build>
     <plugins>
       <plugin>
@@ -30,8 +35,8 @@
               <transformers>
                 <transformer>
                   <manifestEntries>
-                    <Premain-Class>example.lzcjavaagent2.TraceAgent</Premain-Class>
-                    <Agent-Class>example.lzcjavaagent2.TraceAgent</Agent-Class>
+                    <Premain-Class>com.example.lzcjavaagent2.TraceAgent</Premain-Class>
+                    <Agent-Class>com.example.lzcjavaagent2.TraceAgent</Agent-Class>
                     <Can-Redefine-Classes>true</Can-Redefine-Classes>
                     <Can-Retransform-Classes>true</Can-Retransform-Classes>
                   </manifestEntries>
@@ -52,7 +57,4 @@
       <systemPath>/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar</systemPath>
     </dependency>
   </dependencies>
-  <properties>
-    <java.version>1.8</java.version>
-  </properties>
 </project>

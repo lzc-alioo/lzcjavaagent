@@ -23,14 +23,14 @@ public class TimeCountAdpter extends ClassVisitor implements Opcodes {
 
 
     public TimeCountAdpter(ClassVisitor classVisitor) {
-        super(ASM6, classVisitor);
+        super(Opcodes.ASM6, classVisitor);
     }
 
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         super.visit(version, access, name, signature, superName, interfaces);
         owner = name;
-        isInterface = (access & ACC_INTERFACE) != 0;
+        isInterface = (access & Opcodes.ACC_INTERFACE) != 0;
     }
 
     @Override
@@ -80,47 +80,47 @@ public class TimeCountAdpter extends ClassVisitor implements Opcodes {
         public AnalyzerAdapter aa;
 
         public AddTimerMethodAdapter(MethodVisitor methodVisitor) {
-            super(ASM6, methodVisitor);
+            super(Opcodes.ASM6, methodVisitor);
         }
 
 
         @Override
         public void visitCode() {
             mv.visitCode();
-            mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
+            mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
             time = lvs.newLocal(Type.LONG_TYPE);
-            mv.visitVarInsn(LSTORE, time);
+            mv.visitVarInsn(Opcodes.LSTORE, time);
             maxStack = 4;
         }
 
         @Override
         public void visitInsn(int opcode) {
-            if ((opcode >= IRETURN && opcode <= RETURN) || opcode == ATHROW) {
+            if ((opcode >= Opcodes.IRETURN && opcode <= Opcodes.RETURN) || opcode == Opcodes.ATHROW) {
 
-                mv.visitMethodInsn(INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
-                mv.visitVarInsn(LLOAD, time);
-                mv.visitInsn(LSUB);
-                mv.visitVarInsn(LSTORE, time);
+                mv.visitMethodInsn(Opcodes.INVOKESTATIC, "java/lang/System", "nanoTime", "()J", false);
+                mv.visitVarInsn(Opcodes.LLOAD, time);
+                mv.visitInsn(Opcodes.LSUB);
+                mv.visitVarInsn(Opcodes.LSTORE, time);
 
-                mv.visitFieldInsn(GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
-                mv.visitTypeInsn(NEW, "java/lang/StringBuilder");
-                mv.visitInsn(DUP);
-                mv.visitMethodInsn(INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
+                mv.visitFieldInsn(Opcodes.GETSTATIC, "java/lang/System", "out", "Ljava/io/PrintStream;");
+                mv.visitTypeInsn(Opcodes.NEW, "java/lang/StringBuilder");
+                mv.visitInsn(Opcodes.DUP);
+                mv.visitMethodInsn(Opcodes.INVOKESPECIAL, "java/lang/StringBuilder", "<init>", "()V", false);
 
                 mv.visitLdcInsn("    " + owner.replaceAll("/", "\\."));
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
 
                 mv.visitLdcInsn("#" + methodName + ":");
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
 
-                mv.visitVarInsn(LLOAD, time);
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
+                mv.visitVarInsn(Opcodes.LLOAD, time);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(J)Ljava/lang/StringBuilder;", false);
 
                 mv.visitLdcInsn("(ns)");
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "append", "(Ljava/lang/String;)Ljava/lang/StringBuilder;", false);
 
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
-                mv.visitMethodInsn(INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/lang/StringBuilder", "toString", "()Ljava/lang/String;", false);
+                mv.visitMethodInsn(Opcodes.INVOKEVIRTUAL, "java/io/PrintStream", "println", "(Ljava/lang/String;)V", false);
 
                 maxStack = Math.max(aa.stack.size() + 4, maxStack);
             }

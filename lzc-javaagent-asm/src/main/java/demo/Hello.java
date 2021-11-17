@@ -13,21 +13,28 @@ public class Hello {
     }
 
     public void display() {
+//        long var2 = System.nanoTime();
+
         for (int var1 = 0; var1 < 6; ++var1) {
             System.out.println(">>>>>>>>>>我是常量");
         }
 
+//        MethodTag methodTag = new MethodTag("demo.Hello","display");
+//        ProfilingAspect.point(var2,methodTag,null,null);
     }
 
     public List<String> testList() {
-        ArrayList var1 = new ArrayList();
-        var1.add("Tome");
-        var1.add("Jack");
-        var1.add("Lily");
+        ArrayList list = new ArrayList();
+        list.add("Tome2");
+        list.add("Jack");
+        list.add("Lily");
+        printList(list);
+        System.out.println(">>>>>>>>>>testList > list.size = " + list.size());
+        return list;
+    }
 
-
-        System.out.println(">>>>>>>>>>testList > list.size = " + var1.size());
-        return var1;
+    private void printList(List list) {
+        System.out.println(">>>>>>>>>>print > list= " + list);
     }
 
     public Map<String, String> testMapList(List<String> list) {

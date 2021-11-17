@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-//-javaagent:/Users/mac/work/gitstudy/lzcjavaagent/target/lzcjavaagent-0.0.1-SNAPSHOT.jar
+//-javaagent:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm/target/lzc-javaagent-asm-0.0.1-SNAPSHOT.jar=demo.MathGame%20run
+//-javaagent:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-bytebuddy/target/lzc-javaagent-bytebuddy-0.0.1-SNAPSHOT.jar=demo.MathGame%20run
 public class MathGame {
     private static Random random = new Random();
 
@@ -15,15 +16,13 @@ public class MathGame {
         MathGame game = new MathGame();
         while (true) {
             game.run();
+            game.otherMethod();
             TimeUnit.SECONDS.sleep(2);
         }
     }
 
     public void run() throws InterruptedException {
         try {
-            int x = 5;
-            int y = 2;
-            int z = x - y;
             int number = random.nextInt() / 1000;
             List<Integer> primeFactors = primeFactors(number);
             print(number, primeFactors);
@@ -31,6 +30,7 @@ public class MathGame {
         } catch (Exception e) {
             System.out.println(String.format("debug illegalArgumentCount:%3d, ", illegalArgumentCount) + e.getMessage());
         }
+
     }
 
     public static void print(int number, List<Integer> primeFactors) {
@@ -63,5 +63,12 @@ public class MathGame {
         }
 
         return result;
+    }
+
+    public void otherMethod() {
+        int x = 5;
+        int y = 2;
+        int z = x - y;
+        System.out.println("otherMethod z=" + z);
     }
 }

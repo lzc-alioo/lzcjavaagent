@@ -20,9 +20,9 @@ public class ProfilingAspect {
         int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
         boolean isInvoking = true;
 
-        TraceEntity traceEntity = currentEntrySpan(className, methodName, lineNumber, isInvoking);
+        TraceEntity traceEntity = currentEntrySpan(className, methodName, lineNumber);
 
-        traceEntity.tree.begin(className, methodName, -1, false);
+        traceEntity.tree.begin(className, methodName, -1);
         traceEntity.deep++;
     }
 
@@ -36,9 +36,8 @@ public class ProfilingAspect {
 
     public static void methodExit(String className, String methodName) {
         int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
-        boolean isInvoking = true;
 
-        TraceEntity traceEntity = currentEntrySpan(className, methodName, lineNumber, isInvoking);
+        TraceEntity traceEntity = currentEntrySpan(className, methodName, lineNumber);
         traceEntity.tree.end();
 
         if (traceEntity.deep >= 1) {
@@ -81,10 +80,10 @@ public class ProfilingAspect {
         System.out.println(tmp + "[" + tmpNode.getCost() / 1000.0 + "ms] " + tmpNode.getClassName() + ":" + tmpNode.getMethodName() + "() #" + tmpNode.getLineNumber());
     }
 
-    public static TraceEntity currentEntrySpan(String className, String methodName, int lineNumber, boolean isInvoking) {
+    public static TraceEntity currentEntrySpan(String className, String methodName, int lineNumber) {
         TraceEntity traceEntity = threadLocal.get();
         if (traceEntity == null) {
-            traceEntity = new TraceEntity(className, methodName, lineNumber, isInvoking);
+            traceEntity = new TraceEntity(className, methodName, lineNumber);
             threadLocal.set(traceEntity);
         }
         return traceEntity;

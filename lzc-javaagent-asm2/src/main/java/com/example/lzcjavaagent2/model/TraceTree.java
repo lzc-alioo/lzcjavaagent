@@ -27,10 +27,10 @@ public class TraceTree {
      * @param lineNumber line number of invoke point
      * @param isInvoking Whether to invoke this method in other classes
      */
-    public void begin(String className, String methodName, int lineNumber, boolean isInvoking) {
+    public void begin(String className, String methodName, int lineNumber) {
         TraceNode child = findChild(current, className, methodName, lineNumber);
         if (child == null) {
-            child = new MethodNode(className, methodName, lineNumber, isInvoking);
+            child = new MethodNode(className, methodName, lineNumber);
             current.addChild(child);
         }
         child.begin();

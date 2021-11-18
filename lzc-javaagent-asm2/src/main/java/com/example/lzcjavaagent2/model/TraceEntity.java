@@ -10,14 +10,14 @@ public class TraceEntity {
     public TraceTree tree;
     public int deep;
 
-    public TraceEntity(String className, String methodName, int lineNumber, boolean isInvoking) {
-        this.tree = createTraceTree(className, methodName, lineNumber, isInvoking);
+    public TraceEntity(String className, String methodName, int lineNumber) {
+        this.tree = createTraceTree(className, methodName, lineNumber);
         this.deep = 0;
     }
 
-    private TraceTree createTraceTree(String className, String methodName, int lineNumber, boolean isInvoking) {
+    private TraceTree createTraceTree(String className, String methodName, int lineNumber) {
 
-        MethodNode node = new MethodNode(className, methodName, lineNumber, isInvoking);
+        MethodNode node = new MethodNode(className, methodName, lineNumber);
         TraceTree tree = new TraceTree(node);
 
         return tree;

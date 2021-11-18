@@ -82,11 +82,9 @@ public class TraceAgent {
         if (className.startsWith("java.lang.StringBuffer")) {
             return true;
         }
-
-        if (className.equals("java.util.ArrayList")) {
-            return true;
-        }
-
+        //if (className.equals("java.util.ArrayList")) {
+        //    return true;
+        //}
         return false;
     }
 

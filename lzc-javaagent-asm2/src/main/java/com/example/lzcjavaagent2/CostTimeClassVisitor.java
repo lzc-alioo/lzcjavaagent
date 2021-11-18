@@ -106,7 +106,7 @@ public class CostTimeClassVisitor extends ClassVisitor implements Opcodes {
             classReader.accept(timeCountAdpter, ClassReader.EXPAND_FRAMES);
 
 //            File file = new File("/Users/mac/Download/classes/demo/Hello.class");
-            File file = new File("/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm/target/classes/lzc/demo/MathGame.class");
+            File file = new File("/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/classes/lzc/demo/MathGame.class");
             String parent = file.getParent();
             File parent1 = new File(parent);
             boolean mkdirs = parent1.mkdirs();

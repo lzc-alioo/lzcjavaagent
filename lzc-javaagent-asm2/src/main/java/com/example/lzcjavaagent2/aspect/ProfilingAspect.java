@@ -18,7 +18,6 @@ public class ProfilingAspect {
     public static void methodEnter(String className, String methodName) {
 
         int lineNumber = Thread.currentThread().getStackTrace()[2].getLineNumber();
-        boolean isInvoking = true;
 
         TraceEntity traceEntity = currentEntrySpan(className, methodName, lineNumber);
 

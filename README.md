@@ -949,20 +949,19 @@ https://blog.csdn.net/wenwen513/article/details/86498687
 监控的入口方法是demo.MathGame:run 这个方法中调用2个子方法demo.MathGame:primeFactors()，demo.MathGame:print()会在下一层展示 依此类推，子方法均会在下一级进行展示
 堆栈信息中也包含了其它类的子方法，以及jdk自带的类
 
+参见示例代码
+lzc-javaagent-asm2
+
+启动待注入进程
+java demo.MathGame
+java -Xbootclasspath/a:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/lzc-javaagent-asm2-0.0.1-SNAPSHOT.jar demo.MathGame
 
 
+执行注入
+java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun
 
-
-注入类，以及依赖的类均不能进行增强,否则会出现递归调用，报堆栈溢出错误
-
-
-
-
---temp //TODO 记录调用栈行号？
-
-如何标记本次调用结束？ started字段进行标记，methodEnter方法满足匹配规则值修改成true，methodExit方法满足匹配规则值修改成false
-
-如果希望字节码注入到jdk自带的类中，则需要启动Java进程时增加参数 java -Xbootclasspath/a:
+注意事项：
+1. 如果希望字节码注入到jdk自带的类中，则需要启动Java进程时增加参数 java -Xbootclasspath/a:
 /Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/lzc-javaagent-asm2-0.0.1-SNAPSHOT.jar demo.MathGame
 然后再注入即可 java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar
 com.example.lzcjavaagent2.AttachAfterAppRun
@@ -975,5 +974,17 @@ instrumentation.appendToBootstrapClassLoaderSearch(new JarFile("
 IOException e) { System.out.println("appendToSystemClassLoaderSearch这里出异常了..." + e.getMessage()); e.printStackTrace(); }
 抛个问题，为啥字节码注入到jdk自带的类中需要这么做，注入到项目中其它类不需要？
 猜测是jdk自带的类重新加载时使用的classloader，不会扫描项目中的classpath，而项目中类的重新加载时，-javaagent这里的jar包也会被扫描到
+
+2. 注入类，以及依赖的类均不能进行增强,否则会出现递归调用，报堆栈溢出错误
+
+3. 如何标记本次调用结束？ raceEntity.deep == 0 
+   
+
+
+---
+//TODO 记录调用栈行号？
+//TODO 当前结果直接输出到目标进程中了，如果希望将日志输出到注入进程侧呢
+
+
 
 

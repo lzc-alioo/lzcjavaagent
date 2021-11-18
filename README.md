@@ -965,9 +965,9 @@ https://blog.csdn.net/wenwen513/article/details/86498687
 started字段进行标记，methodEnter方法满足匹配规则值修改成true，methodExit方法满足匹配规则值修改成false
 
 如果希望字节码注入到jdk自带的类中，则需要启动Java进程时增加参数
-java -Xbootclasspath/a:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm/target/lzc-javaagent-asm-0.0.1-SNAPSHOT.jar demo.MathGame
+java -Xbootclasspath/a:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/lzc-javaagent-asm2-0.0.1-SNAPSHOT.jar demo.MathGame
 然后再注入即可
-java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun2
+java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun
 
 当然上述方式不是最好的，既然是在进程之后插桩，所以不可能进程启动时提前想到需要增加-Xbootclasspath/a参数，还有另外一种方式
 agentmain方法入口处，调用instrumentation.appendToBootstrapClassLoaderSearch达到跟上述命令一样的效果

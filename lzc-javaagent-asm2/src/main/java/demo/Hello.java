@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Hello {
-    public static final String FLAG = "我是常量";
+    public static final String FLAG = "我是alioo";
 
     public Hello() {
     }
@@ -14,16 +14,15 @@ public class Hello {
     public void display() {
 
         for (int var1 = 0; var1 < 6; ++var1) {
-            System.out.println(">>>>>>>>>>我是常量");
+            System.out.println(">>>>>>>>>>我是alioo");
         }
 
     }
 
     public List<String> testList() {
         ArrayList list = new ArrayList();
-        list.add("Tome2");
-        list.add("Jack");
-        list.add("Lily");
+        list.add("lzc");
+        list.add("alioo");
         printList(list);
         System.out.println(">>>>>>>>>>testList > list.size = " + list.size());
         return list;

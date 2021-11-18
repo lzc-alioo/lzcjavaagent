@@ -984,6 +984,8 @@ IOException e) { System.out.println("appendToSystemClassLoaderSearch这里出异
 ---
 //TODO 记录调用栈行号？
 //TODO 当前结果直接输出到目标进程中了，如果希望将日志输出到注入进程侧呢
+//TODO 除了记录耗时，把出入参，异常也打印出来
+//TODO 循环调用的问题
 
 
 

@@ -8,8 +8,7 @@ import java.util.List;
 /**
  * @author: 悟心
  * @time: 2021/11/2 11:10
- * @description:
- *  java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun
+ * @description: java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun
  */
 public class AttachAfterAppRun {
     public static void main(String[] args) throws AgentLoadException, IOException, AgentInitializationException, AttachNotSupportedException, InterruptedException {

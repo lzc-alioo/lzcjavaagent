@@ -2,6 +2,7 @@ package com.example.lzcjavaagent2.model;
 
 /**
  * Method call node of TraceCommand
+ *
  * @author gongdewei 2020/4/29
  */
 public class MethodNode extends TraceNode {

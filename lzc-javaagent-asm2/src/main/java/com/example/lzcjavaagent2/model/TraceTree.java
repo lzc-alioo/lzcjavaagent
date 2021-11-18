@@ -87,15 +87,5 @@ public class TraceTree {
         this.end();
     }
 
-    public TraceNode getRoot() {
-        return root;
-    }
 
-    public TraceNode current() {
-        return current;
-    }
-
-    public int getNodeCount() {
-        return nodeCount;
-    }
 }

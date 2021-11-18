@@ -13,12 +13,12 @@ public class CostTimeTransformer implements ClassFileTransformer {
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) {
 
         //白名单
-        if(TraceAgent.isWhiteClass(className)){
+        if (TraceAgent.isWhiteClass(className)) {
             return enhance(loader, className, classBeingRedefined, protectionDomain, classfileBuffer);
         }
 
         //黑名单
-        if(TraceAgent.isBlackClass(className)){
+        if (TraceAgent.isBlackClass(className)) {
             return classfileBuffer;
         }
 

@@ -45,7 +45,7 @@ public class TraceAgent {
         System.out.println("agentmain done");
     }
 
-    private static Class[] getMatchedClass( Instrumentation instrumentation) {
+    private static Class[] getMatchedClass(Instrumentation instrumentation) {
         Class classes[] = instrumentation.getAllLoadedClasses();
 
         int i = 0;
@@ -55,11 +55,11 @@ public class TraceAgent {
             for (i = 0; i < classes.length; i++) {
                 String className = classes[i].getName();
 
-                if(isWhiteClass(className)){
+                if (isWhiteClass(className)) {
                     list.add(classes[i]);
                 }
 
-                if(isBlackClass(className)){
+                if (isBlackClass(className)) {
                     continue;
                 }
 
@@ -90,7 +90,7 @@ public class TraceAgent {
         return false;
     }
 
-    public static boolean isBlackClass(String className){
+    public static boolean isBlackClass(String className) {
         className = className.replace('/', '.');
 
         if (className.startsWith("java") || className.startsWith("sun")) {

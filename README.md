@@ -900,10 +900,10 @@ public class AttachAfterAppRun {
 ```xml
 
 <manifestEntries>
-   <Premain-Class>example.lzcjavaagent.TraceAgent</Premain-Class>
-   <Agent-Class>example.lzcjavaagent.TraceAgent</Agent-Class>
-   <Can-Redefine-Classes>true</Can-Redefine-Classes>
-   <Can-Retransform-Classes>true</Can-Retransform-Classes>
+    <Premain-Class>example.lzcjavaagent.TraceAgent</Premain-Class>
+    <Agent-Class>example.lzcjavaagent.TraceAgent</Agent-Class>
+    <Can-Redefine-Classes>true</Can-Redefine-Classes>
+    <Can-Retransform-Classes>true</Can-Retransform-Classes>
 </manifestEntries>
 ```
 
@@ -919,7 +919,6 @@ Caused by: java.lang.UnsupportedOperationException: class redefinition failed: a
 java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar   com.example.lzcjavaagent.AttachAfterAppRun 
 ```
 
-
 本文完整的代码git地址：https://github.com/lzc-alioo/lzcjavaagent，欢迎下载运行。
 
 参考文章：
@@ -929,9 +928,11 @@ https://blog.csdn.net/wenwen513/article/details/86498687
 
 
 ---
+
 - 增强：如何以树状形式展示调用栈结果
 
 示例：
+
 ```
   ----[5615.408ms] demo.MathGame:run() 
   --------[4684.296ms] demo.MathGame:primeFactors() 
@@ -945,39 +946,24 @@ https://blog.csdn.net/wenwen513/article/details/86498687
   ----------------[114.481ms] demo.Hello:printList() 
 ```
 
-监控的入口方法是demo.MathGame:run
-这个方法中调用2个子方法demo.MathGame:primeFactors()，demo.MathGame:print()会在下一层展示
-依此类推，子方法均会在下一级进行展示
+监控的入口方法是demo.MathGame:run 这个方法中调用2个子方法demo.MathGame:primeFactors()，demo.MathGame:print()会在下一层展示 依此类推，子方法均会在下一级进行展示
 堆栈信息中也包含了其它类的子方法，以及jdk自带的类
 
+--temp //TODO 记录调用栈行号？
 
+如何标记本次调用结束？ started字段进行标记，methodEnter方法满足匹配规则值修改成true，methodExit方法满足匹配规则值修改成false
 
-
-
-
-
-
-
---temp
-//TODO  记录调用栈行号？
-
-如何标记本次调用结束？
-started字段进行标记，methodEnter方法满足匹配规则值修改成true，methodExit方法满足匹配规则值修改成false
-
-如果希望字节码注入到jdk自带的类中，则需要启动Java进程时增加参数
-java -Xbootclasspath/a:/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/lzc-javaagent-asm2-0.0.1-SNAPSHOT.jar demo.MathGame
-然后再注入即可
-java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar com.example.lzcjavaagent2.AttachAfterAppRun
+如果希望字节码注入到jdk自带的类中，则需要启动Java进程时增加参数 java -Xbootclasspath/a:
+/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm2/target/lzc-javaagent-asm2-0.0.1-SNAPSHOT.jar demo.MathGame
+然后再注入即可 java -cp .:/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home/lib/tools.jar
+com.example.lzcjavaagent2.AttachAfterAppRun
 
 当然上述方式不是最好的，既然是在进程之后插桩，所以不可能进程启动时提前想到需要增加-Xbootclasspath/a参数，还有另外一种方式
-agentmain方法入口处，调用instrumentation.appendToBootstrapClassLoaderSearch达到跟上述命令一样的效果
-public static void agentmain(String agentArgs, Instrumentation instrumentation) throws UnsupportedEncodingException {
-try {
-instrumentation.appendToBootstrapClassLoaderSearch(new JarFile("/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm/target/lzc-javaagent-asm-0.0.1-SNAPSHOT.jar"));
-} catch (IOException e) {
-System.out.println("appendToSystemClassLoaderSearch这里出异常了..." + e.getMessage());
-e.printStackTrace();
-}
+agentmain方法入口处，调用instrumentation.appendToBootstrapClassLoaderSearch达到跟上述命令一样的效果 public static void agentmain(String
+agentArgs, Instrumentation instrumentation) throws UnsupportedEncodingException { try {
+instrumentation.appendToBootstrapClassLoaderSearch(new JarFile("
+/Users/mac/work/gitstudy/lzcjavaagent/lzc-javaagent-asm/target/lzc-javaagent-asm-0.0.1-SNAPSHOT.jar")); } catch (
+IOException e) { System.out.println("appendToSystemClassLoaderSearch这里出异常了..." + e.getMessage()); e.printStackTrace(); }
 抛个问题，为啥字节码注入到jdk自带的类中需要这么做，注入到项目中其它类不需要？
 猜测是jdk自带的类重新加载时使用的classloader，不会扫描项目中的classpath，而项目中类的重新加载时，-javaagent这里的jar包也会被扫描到
 

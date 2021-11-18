@@ -949,6 +949,15 @@ https://blog.csdn.net/wenwen513/article/details/86498687
 监控的入口方法是demo.MathGame:run 这个方法中调用2个子方法demo.MathGame:primeFactors()，demo.MathGame:print()会在下一层展示 依此类推，子方法均会在下一级进行展示
 堆栈信息中也包含了其它类的子方法，以及jdk自带的类
 
+
+
+
+
+注入类，以及依赖的类均不能进行增强,否则会出现递归调用，报堆栈溢出错误
+
+
+
+
 --temp //TODO 记录调用栈行号？
 
 如何标记本次调用结束？ started字段进行标记，methodEnter方法满足匹配规则值修改成true，methodExit方法满足匹配规则值修改成false

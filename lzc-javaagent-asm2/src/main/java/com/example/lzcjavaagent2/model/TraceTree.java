@@ -10,8 +10,10 @@ import java.util.List;
  */
 public class TraceTree {
     public TraceNode root;
-
     public TraceNode current;
+    /**
+     * 标记是否是入口方法，如果是则findChild直接返回当前对象
+     */
     private int nodeCount = 0;
 
     public TraceTree(TraceNode root) {
@@ -25,7 +27,6 @@ public class TraceTree {
      * @param className  className of method
      * @param methodName method name of the call
      * @param lineNumber line number of invoke point
-     * @param isInvoking Whether to invoke this method in other classes
      */
     public void begin(String className, String methodName, int lineNumber) {
         TraceNode child = findChild(current, className, methodName, lineNumber);

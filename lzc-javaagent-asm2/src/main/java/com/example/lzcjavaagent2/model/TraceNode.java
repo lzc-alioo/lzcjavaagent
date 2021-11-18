@@ -18,7 +18,8 @@ public class TraceNode {
 
     public void addChild(TraceNode child) {
         if (children == null) {
-            //LinkedList不能进行字节码注入，否则启动会报栈溢出
+            //LinkedList目前不能进行字节码注入，否则启动会报栈溢出
+            //准确地说注入类，以及依赖的类均不能进行增强
             children = new LinkedList<TraceNode>();
         }
         this.children.add(child);

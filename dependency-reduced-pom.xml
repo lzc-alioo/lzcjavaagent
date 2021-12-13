@@ -31,8 +31,8 @@
                             <transformers>
                                 <transformer>
                                     <manifestEntries>
-                                        <Premain-Class>example.lzcjavaagent2.TraceAgent</Premain-Class>
-                                        <Agent-Class>example.lzcjavaagent2.TraceAgent</Agent-Class>
+                                        <Premain-Class>example.com.example.lzcjavaagent2.TraceAgent</Premain-Class>
+                                        <Agent-Class>example.com.example.lzcjavaagent2.TraceAgent</Agent-Class>
                                         <Can-Redefine-Classes>true</Can-Redefine-Classes>
                                         <Can-Retransform-Classes>true</Can-Retransform-Classes>
                                     </manifestEntries>

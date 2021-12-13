@@ -852,7 +852,6 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * @author: 悟心
  * @time: 2021/11/2 11:10
  * @description:
  */
@@ -951,6 +950,7 @@ https://blog.csdn.net/wenwen513/article/details/86498687
 
 参见示例代码
 lzc-javaagent-asm2
+https://github.com/lzc-alioo/lzcjavaagent/tree/main/lzc-javaagent-asm2
 
 启动待注入进程
 java demo.MathGame

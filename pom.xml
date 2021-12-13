@@ -18,6 +18,7 @@
     <modules>
         <module>lzc-javaagent-asm</module>
         <module>lzc-javaagent-asm2</module>
+        <module>lzc-javaagent-asm3</module>
     </modules>
 
 

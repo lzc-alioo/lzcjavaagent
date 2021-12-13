@@ -1,4 +1,4 @@
-package socket;
+package com.example.lzcjavaagent2.socket;
 
 import com.example.lzcjavaagent2.model.MethodNode;
 
@@ -18,8 +18,8 @@ public class TraceBuffer {
     public static void add(MethodNode node){
         if(list.size()>size){
             list.remove(0);
-            list.add(node);
         }
+        list.add(node);
     }
 
 }

@@ -3,7 +3,7 @@ package com.example.lzcjavaagent2.aspect;
 import com.example.lzcjavaagent2.model.MethodNode;
 import com.example.lzcjavaagent2.model.TraceEntity;
 import com.example.lzcjavaagent2.model.TraceNode;
-import socket.TraceBuffer;
+import com.example.lzcjavaagent2.socket.TraceBuffer;
 
 /**
  * @author: 悟心
@@ -51,12 +51,12 @@ public class ProfilingAspect {
                 return;
             }
             StringBuffer buf = new StringBuffer();
-            log(root, 1,buf);
+            log(root, 1, buf);
             addTraceBuffer(root);
         }
     }
 
-    private static void log(TraceNode root, int idx,StringBuffer buf) {
+    public static void log(TraceNode root, int idx, StringBuffer buf) {
         String space = "----";
         MethodNode tmpNode = (MethodNode) root;
         if (tmpNode == null) {
@@ -67,25 +67,26 @@ public class ProfilingAspect {
             tmp += space;
         }
 
-        String str=print(tmp, tmpNode);
+        String str = logData(tmp, tmpNode);
+//        System.out.println(str);
+        buf.append(str).append("\n");
 
         if (tmpNode.getChildren() != null && tmpNode.getChildren().size() > 0) {
             idx++;
             for (TraceNode tmpNode2 : tmpNode.getChildren()) {
-                log(tmpNode2, idx,buf);
+                log(tmpNode2, idx, buf);
             }
         }
 
     }
 
 
-    private static String print(String tmp, MethodNode tmpNode) {
-        String str=tmp + "[" + tmpNode.getCost() / 1000.0 + "ms] " + tmpNode.getClassName() + ":" + tmpNode.getMethodName() + "() #" + tmpNode.getLineNumber();
-        System.out.println(str);
+    private static String logData(String tmp, MethodNode tmpNode) {
+        String str = tmp + "[" + tmpNode.getCost() / 1000.0 + "ms] " + tmpNode.getClassName() + ":" + tmpNode.getMethodName() + "() #" + tmpNode.getLineNumber();
         return str;
     }
 
-    private static void addTraceBuffer( MethodNode root) {
+    private static void addTraceBuffer(MethodNode root) {
         TraceBuffer.add(root);
     }
 

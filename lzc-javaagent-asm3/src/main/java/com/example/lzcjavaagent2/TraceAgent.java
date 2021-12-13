@@ -1,6 +1,7 @@
 package com.example.lzcjavaagent2;
 
 import com.example.lzcjavaagent2.aspect.ProfilingAspect;
+import com.example.lzcjavaagent2.socket.SocketServer;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -45,6 +46,15 @@ public class TraceAgent {
             }
         }
         System.out.println("agentmain done");
+
+        SocketServer.start();
+        //由于内部会阻塞客户端连接，如果这里不开启线程，挂载类AttachAfterAppRun就会一直阻塞
+        new Thread("agent-server"){
+            @Override
+            public void run() {
+                SocketServer.start();
+            }
+        }.start();
     }
 
     private static Class[] getMatchedClass(Instrumentation instrumentation) {

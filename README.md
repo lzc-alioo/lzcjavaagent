@@ -988,5 +988,5 @@ IOException e) { System.out.println("appendToSystemClassLoaderSearch这里出异
 //TODO 循环调用的问题
 
 
-
-
+<artifactId>lzc-javaagent-asm3</artifactId>完成了独立打印堆栈日志
+暂时没有写Java telnet客户端，可以通过命令telnet 127.0.0.1 3658来获取堆栈日志
